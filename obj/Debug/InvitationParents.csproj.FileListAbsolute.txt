@@ -1,0 +1,10 @@
+D:\Github\InvitationParents\bin\Debug\InvitationParents.dll
+D:\Github\InvitationParents\bin\Debug\InvitationParents.pdb
+D:\Github\InvitationParents\obj\Debug\InvitationParents.csprojResolveAssemblyReference.cache
+D:\Github\InvitationParents\obj\Debug\InvitationParents.Properties.Resources.resources
+D:\Github\InvitationParents\obj\Debug\InvitationParents.csproj.GenerateResource.Cache
+D:\Github\InvitationParents\obj\Debug\InvitationParents.dll
+D:\Github\InvitationParents\obj\Debug\InvitationParents.pdb
+D:\Github\InvitationParents\bin\Debug\Aspose.BarCode.dll
+D:\Github\InvitationParents\obj\Debug\InvitationParents.Form.resources
+D:\Github\InvitationParents\bin\Debug\Aspose.Words.dll
