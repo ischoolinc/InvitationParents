@@ -20,7 +20,7 @@ namespace InvitationParents
 			item1["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Enable = false;
 			item1["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Click += delegate
 			{
-				Form form = new Form(K12.Presentation.NLDPanels.Student.SelectedSource);
+				Form form = new Form(K12.Presentation.NLDPanels.Student.SelectedSource,"student");
 				form.ShowDialog();
 			};
 
@@ -34,19 +34,18 @@ namespace InvitationParents
 				List<StudentRecord> studs = K12.Data.Student.SelectByClassIDs(K12.Presentation.NLDPanels.Class.SelectedSource);
 				List<string> strStuds = new List<string>();
 				foreach (StudentRecord sr in studs) {
-					if (strStuds.Contains(sr.ID)) {
+					if (!strStuds.Contains(sr.ID)) {
 						strStuds.Add(sr.ID);
 					}
 				}
-
-				Form form = new Form(strStuds);
+				Form form = new Form(strStuds,"class");
 				form.ShowDialog();
 			};
 
-			//權限設定(學生)
+			//權限設定
 			K12.Presentation.NLDPanels.Student.SelectedSourceChanged += delegate
 			{
-				if (K12.Presentation.NLDPanels.Student.SelectedSource.Count > 0 && Permissions.學生家長邀請函權限)
+				if (K12.Presentation.NLDPanels.Student.SelectedSource.Count > 0 && Permissions.家長邀請函權限)
 				{
 					item1["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Enable = true;
 				}
@@ -54,22 +53,19 @@ namespace InvitationParents
 					item1["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Enable = false;
 			};
 
-			////權限設定(班級)
-			//K12.Presentation.NLDPanels.Class.SelectedSourceChanged += delegate
-			//{
-			//	if (K12.Presentation.NLDPanels.Class.SelectedSource.Count > 0 && Permissions.班級家長邀請函權限)
-			//	{
-			//		item1["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Enable = true;
-			//	}
-			//	else
-			//		item1["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Enable = false;
-			//};
+			K12.Presentation.NLDPanels.Class.SelectedSourceChanged += delegate
+			{
+				if (K12.Presentation.NLDPanels.Class.SelectedSource.Count > 0 && Permissions.家長邀請函權限)
+				{
+					item2["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Enable = true;
+				}
+				else
+					item2["報表"]["代碼相關報表"]["學生家長代碼邀請函 for App"].Enable = false;
+			};
 
 			//權限設定
 			Catalog permission = RoleAclSource.Instance["學生"]["功能按鈕"];
-			permission.Add(new RibbonFeature(Permissions.學生家長邀請函, "學生家長代碼邀請函 for App"));
-			//permission = RoleAclSource.Instance["班級"]["功能按鈕"];
-			//permission.Add(new RibbonFeature(Permissions.班級家長邀請函, "學生家長代碼邀請函 for App"));
+			permission.Add(new RibbonFeature(Permissions.家長邀請函, "學生家長代碼邀請函 for App"));
 		}
     }
 }

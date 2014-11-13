@@ -40,7 +40,7 @@
 			this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
 			this.buttonX1.BackColor = System.Drawing.Color.Transparent;
 			this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-			this.buttonX1.Location = new System.Drawing.Point(137, 115);
+			this.buttonX1.Location = new System.Drawing.Point(137, 82);
 			this.buttonX1.Name = "buttonX1";
 			this.buttonX1.Size = new System.Drawing.Size(75, 23);
 			this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -53,7 +53,7 @@
 			this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
 			this.buttonX2.BackColor = System.Drawing.Color.Transparent;
 			this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-			this.buttonX2.Location = new System.Drawing.Point(218, 115);
+			this.buttonX2.Location = new System.Drawing.Point(218, 82);
 			this.buttonX2.Name = "buttonX2";
 			this.buttonX2.Size = new System.Drawing.Size(75, 23);
 			this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -69,11 +69,11 @@
 			// 
 			this.labelX1.BackgroundStyle.Class = "";
 			this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-			this.labelX1.Location = new System.Drawing.Point(19, 21);
+			this.labelX1.Location = new System.Drawing.Point(12, 12);
 			this.labelX1.Name = "labelX1";
-			this.labelX1.Size = new System.Drawing.Size(282, 60);
+			this.labelX1.Size = new System.Drawing.Size(291, 44);
 			this.labelX1.TabIndex = 2;
-			this.labelX1.Text = "說明：本功能將會列印邀請學生QRCODE，\r\n提供家長便利迅速與家長即時通訊App連結。";
+			this.labelX1.Text = "說明：本功能將會列印邀請學生之家長邀請函，\r\n方便學校邀請家長加入ischool App。";
 			// 
 			// checkBoxX1
 			// 
@@ -83,7 +83,7 @@
 			// 
 			this.checkBoxX1.BackgroundStyle.Class = "";
 			this.checkBoxX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-			this.checkBoxX1.Location = new System.Drawing.Point(12, 115);
+			this.checkBoxX1.Location = new System.Drawing.Point(12, 62);
 			this.checkBoxX1.Name = "checkBoxX1";
 			this.checkBoxX1.Size = new System.Drawing.Size(108, 23);
 			this.checkBoxX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -95,18 +95,19 @@
 			// 
 			this.linkLabel1.AutoSize = true;
 			this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-			this.linkLabel1.Location = new System.Drawing.Point(16, 95);
+			this.linkLabel1.Location = new System.Drawing.Point(12, 88);
 			this.linkLabel1.Name = "linkLabel1";
 			this.linkLabel1.Size = new System.Drawing.Size(86, 17);
 			this.linkLabel1.TabIndex = 4;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "檢視合併欄位";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
 			// 
 			// Form
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(305, 150);
+			this.ClientSize = new System.Drawing.Size(305, 113);
 			this.Controls.Add(this.linkLabel1);
 			this.Controls.Add(this.checkBoxX1);
 			this.Controls.Add(this.labelX1);

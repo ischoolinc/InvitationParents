@@ -63,9 +63,9 @@ namespace InvitationParents.Properties {
         /// <summary>
         ///   查詢類型 System.Byte[] 的當地語系化資源。
         /// </summary>
-        internal static byte[] QRcode {
+        internal static byte[] Class_QRcode {
             get {
-                object obj = ResourceManager.GetObject("QRcode", resourceCulture);
+                object obj = ResourceManager.GetObject("Class_QRcode", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace InvitationParents.Properties {
         /// <summary>
         ///   查詢類型 System.Byte[] 的當地語系化資源。
         /// </summary>
-        internal static byte[] QRcode1 {
+        internal static byte[] Class_QRcode1 {
             get {
-                object obj = ResourceManager.GetObject("QRcode1", resourceCulture);
+                object obj = ResourceManager.GetObject("Class_QRcode1", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -87,6 +87,16 @@ namespace InvitationParents.Properties {
             get {
                 object obj = ResourceManager.GetObject("Report", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
+        internal static byte[] Student_QRcode {
+            get {
+                object obj = ResourceManager.GetObject("Student_QRcode", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

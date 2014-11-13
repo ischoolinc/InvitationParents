@@ -32,9 +32,12 @@
   <ItemGroup>
     <Reference Include="Aspose.BarCode">
       <HintPath>library\Aspose.BarCode.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Aspose.Words">
-      <HintPath>library\Aspose.Words.dll</HintPath>
+    <Reference Include="Aspose.Words_201402, Version=14.1.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Library\Aspose.Words_201402.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -70,6 +73,7 @@
     </Reference>
     <Reference Include="SmartSchool.ePaper">
       <HintPath>library\SmartSchool.ePaper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -96,7 +100,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TemplateType.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form.resx">
@@ -104,14 +107,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\QRcode.doc" />
-    <None Include="Resources\QRcode1.doc" />
+    <None Include="Resources\Class_QRcode.doc" />
+    <None Include="Resources\Class_QRcode.docx" />
     <None Include="Resources\Report.png" />
+    <None Include="Resources\Student_QRcode.doc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
