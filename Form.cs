@@ -100,6 +100,19 @@ namespace InvitationParents
                     perPage.MailMerge.DeleteFields();
 
                     doc.Sections.Add(doc.ImportNode(perPage.Sections[0], true));
+					if (this.checkBoxX1.Checked)
+					{
+						//建立一個班級電子報表
+						//傳入參數 : 報表名稱,學年度,學期,類型(學生/班級/教師/課程)
+						paperForStudent = new ElectronicPaper("學生家長代碼邀請函 for App", School.DefaultSchoolYear, School.DefaultSemester, ViewerType.Student);
+						MemoryStream memoryStream = new MemoryStream();
+						perPage.Save(memoryStream, SaveFormat.Doc);
+						//傳參數給PaperItem
+						//格式 / 內容 / 對象的系統編號
+						paperForStudent.Append(new PaperItem("doc", memoryStream, studentId));
+						//開始上傳
+						DispatcherProvider.Dispatch(this.paperForStudent);
+					}
                 }
             }
 
@@ -131,7 +144,7 @@ namespace InvitationParents
                     if (!pages[pageIndex].ContainsKey("學校名稱"))
                         pages[pageIndex].Add("學校名稱", className);
 
-                    pages[pageIndex].Add("年級" + offset % size, gradeYear);
+					pages[pageIndex].Add("年級" + offset % size, gradeYear + "年級");
                     pages[pageIndex].Add("座號" + offset % size, seatNo);
                     pages[pageIndex].Add("學生姓名" + offset % size, studentName);
                     pages[pageIndex].Add("QRCODE" + offset % size, parentsCode + "@" + DSNSName);
