@@ -112,8 +112,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Class_QRcode.doc" />
     <None Include="Resources\Class_QRcode.docx" />
+    <None Include="Resources\QRCODE 合併欄位.docx" />
     <None Include="Resources\Report.png" />
     <None Include="Resources\Student_QRcode.doc" />
   </ItemGroup>

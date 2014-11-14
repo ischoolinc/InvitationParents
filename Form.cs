@@ -14,6 +14,7 @@ using Aspose.Words.Drawing;
 using Aspose.Words;
 using System.IO;
 using SmartSchool.ePaper;
+using Aspose.Words.Reporting;
 
 namespace InvitationParents
 {
@@ -24,7 +25,7 @@ namespace InvitationParents
 		/// </summary>
 		SmartSchool.ePaper.ElectronicPaper paperForStudent { get; set; }
 
-		Document _doc = new Document();
+
 		Document _template = new Document();
 		BackgroundWorker bgw = new BackgroundWorker();
 		private List<string> studentIds;
@@ -54,7 +55,7 @@ namespace InvitationParents
 			}
 			else if (_type == "class")
 			{
-				_template = new Document(new MemoryStream(Properties.Resources.Class_QRcode1));
+				_template = new Document(new MemoryStream(Properties.Resources.Class_QRcode));
 				bgw.RunWorkerAsync(studentIds);
 			}
 		}
@@ -68,23 +69,27 @@ namespace InvitationParents
 			string ids = string.Join(",", student);
 
 			string sql = "select student.id,student.parent_code,seat_no,name,class.grade_year,class.class_name from student";
-			sql += " join class on class.id = student.ref_class_id where student.id in (" + ids + ") order by class.grade_year,class.display_order,class.class_name,student.seat_no";
+			sql += " join class on class.id = student.ref_class_id where student.status in (1,2) and student.id in (" + ids + ") order by class.grade_year,class.display_order,class.class_name,student.seat_no";
 			DataTable dt = queryHelper.Select(sql); ;
+			Document doc = new Document();
 			Dictionary<string, object> merge = new Dictionary<string, object>();
-			int count = 0;
+			int count = 0, pageSize = 9;
+			int index = 0;
 
 			string previous_cn = string.Empty;
-			foreach (DataRow row in dt.Rows)
+
+			//start
+			if (_type == "student")
 			{
-				string gradeYear = row["grade_year"] + "",
-					studentName = row["name"] + "",
-					seatNo = row["seat_no"] + "",
-					className = row["class_name"] + "",
-					studentId = row["id"] + "",
-					parentsCode = row["parent_code"] + "";
-				//start
-				if (_type == "student")
+				foreach (DataRow row in dt.Rows)
 				{
+					string gradeYear = row["grade_year"] + "",
+						studentName = row["name"] + "",
+						seatNo = row["seat_no"] + "",
+						className = row["class_name"] + "",
+						studentId = row["id"] + "",
+						parentsCode = row["parent_code"] + "";
+
 					Document perPage = _template.Clone();
 					merge.Clear();
 					merge.Add("年級", gradeYear);
@@ -98,72 +103,131 @@ namespace InvitationParents
 					perPage.MailMerge.Execute(merge.Keys.ToArray<string>(), merge.Values.ToArray<object>());
 					perPage.MailMerge.DeleteFields();
 
-					_doc.Sections.Add(_doc.ImportNode(perPage.Sections[0], true));
+					doc.Sections.Add(doc.ImportNode(perPage.Sections[0], true));
 				}
+			}
 
-				if (_type == "class")
+			if (_type == "class")
+			{
+				Dictionary<string, Dictionary<string, string>> classes = new Dictionary<string, Dictionary<string, string>>();
+
+				int offset = 0, size = 9;
+				foreach (DataRow row in dt.Rows)
 				{
-					if (merge.ContainsKey(className))
-						merge.Add("班級名稱", className);
+					string gradeYear = row["grade_year"] + "",
+						studentName = row["name"] + "",
+						seatNo = row["seat_no"] + "",
+						className = row["class_name"] + "",
+						studentId = row["id"] + "",
+						parentsCode = row["parent_code"] + "";
 
-					if (merge.ContainsKey(schoolName))
-						merge.Add("學校名稱", schoolName);
+					if (!classes.ContainsKey(className))
+					{
+						classes.Add(className, new Dictionary<string, string>());
+						offset = 0;
+					}
 
-					merge.Add("年級" + count, gradeYear);
-					merge.Add("座號" + count, seatNo);
-					merge.Add("學生姓名" + count, studentName);
-					merge.Add("QRCODE" + count, parentsCode + "@" + DSNSName);
-					merge.Add("家長代碼" + count, parentsCode);
+					if (!classes[className].ContainsKey("班級名稱"))
+						classes[className].Add("班級名稱", className);
 
-					count++;
+					if (!classes[className].ContainsKey("學校名稱"))
+						classes[className].Add("學校名稱", className);
 
-					if (count == 3)
+					classes[className].Add("年級" + offset % size, gradeYear);
+					classes[className].Add("座號" + offset % size, seatNo);
+					classes[className].Add("學生姓名" + offset % size, studentName);
+					classes[className].Add("QRCODE" + offset % size, parentsCode + "@" + DSNSName);
+					classes[className].Add("家長代碼" + offset % size, parentsCode);
+
+					if (offset % size == 0)
 					{
 						Document perPage = _template.Clone();
-
-						//perPage.MailMerge.FieldMergingCallback = new MailMerge_MergeField();
+						perPage.MailMerge.FieldMergingCallback = new MailMerge_MergeField();
 						perPage.MailMerge.Execute(merge.Keys.ToArray<string>(), merge.Values.ToArray<object>());
 						perPage.MailMerge.DeleteFields();
 
-						_doc.Sections.Add(_doc.ImportNode(perPage.Sections[0], true));
-
-						count = 0;
-						merge.Clear();
+						doc.Sections.Add(doc.ImportNode(perPage.Sections[0], true));
 					}
 
-					previous_cn = className;
+					offset++;
 				}
 
-				//end
+
+				//if (!merge.ContainsKey("班級名稱"))
+				//	merge.Add("班級名稱", className);
+
+				//if (!merge.ContainsKey("學校名稱"))
+				//	merge.Add("學校名稱", schoolName);
+
+				//merge.Add("年級" + index, gradeYear);
+				//merge.Add("座號" + index, seatNo);
+				//merge.Add("學生姓名" + index, studentName);
+				//merge.Add("QRCODE" + index, parentsCode + "@" + DSNSName);
+				//merge.Add("家長代碼" + index, parentsCode);
+
+				//if ((index == (pageSize - 1)) || (className != previous_cn && count > 0))
+				//{
+				//	Document perPage = _template.Clone();
+				//	perPage.MailMerge.FieldMergingCallback = new MailMerge_MergeField();
+				//	perPage.MailMerge.Execute(merge.Keys.ToArray<string>(), merge.Values.ToArray<object>());
+				//	perPage.MailMerge.DeleteFields();
+
+				//	doc.Sections.Add(doc.ImportNode(perPage.Sections[0], true));
+				//	merge.Clear();
+				//}
+
+				//count++;
+				//previous_cn = className;
+				//index = (count % pageSize);
+
 			}
-			_doc.Sections.RemoveAt(0);
-			e.Result = _doc;
+			//end
+
+			doc.Sections.RemoveAt(0);
+			e.Result = doc;
 		}
-		class MailMerge_MergeField : Aspose.Words.Reporting.IFieldMergingCallback
+		class MailMerge_MergeField : IFieldMergingCallback
 		{
-			public void FieldMerging(Aspose.Words.Reporting.FieldMergingArgs args)
+
+			private List<string> qrcodeFieldNames = new List<string>()
+			 {
+				"QRCODE",
+				"QRCODE0",
+				"QRCODE1",
+				"QRCODE2",
+				"QRCODE3",
+				"QRCODE4",
+				"QRCODE5",
+				"QRCODE6",
+				"QRCODE7",
+				"QRCODE8",
+				"QRCODE9",
+				"QRCODE10",
+				"QRCODE11",
+				"QRCODE12"
+			 };
+			public void FieldMerging(FieldMergingArgs args)
 			{
-				Aspose.Words.Reporting.FieldMergingArgs e = args;
-				if (e.FieldName == "QRCODE")
+				FieldMergingArgs e = args;
+				if (!qrcodeFieldNames.Contains(e.DocumentFieldName))
+					return;
+				DocumentBuilder builder = new DocumentBuilder(e.Document);
+				builder.MoveToField(e.Field, true);
+				e.Field.Remove();
+				if (e.FieldValue != null && e.FieldValue.ToString() != "")
 				{
-					DocumentBuilder builder = new DocumentBuilder(e.Document);
-					builder.MoveToField(e.Field, true);
-					e.Field.Remove();
-					if (e.FieldValue != null && e.FieldValue.ToString() != "")
-					{
-						BarCodeBuilder bb = new BarCodeBuilder(e.FieldValue.ToString(), Symbology.QR);
-						bb.GraphicsUnit = GraphicsUnit.Millimeter;
-						bb.AutoSize = false;
-						//QRcode size
-						bb.xDimension = 1.2f;
-						bb.yDimension = 1.2f;
-						//Image size
-						bb.ImageWidth = 42f;
-						bb.ImageHeight = 31.5f;
-						MemoryStream stream = new MemoryStream();
-						bb.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-						builder.InsertImage(stream);
-					}
+					BarCodeBuilder bb = new BarCodeBuilder(e.FieldValue.ToString(), Symbology.QR);
+					bb.GraphicsUnit = GraphicsUnit.Millimeter;
+					bb.AutoSize = false;
+					//QRcode size
+					bb.xDimension = 1.2f;
+					bb.yDimension = 1.2f;
+					//Image size
+					bb.ImageWidth = 42f;
+					bb.ImageHeight = 31.5f;
+					MemoryStream stream = new MemoryStream();
+					bb.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+					builder.InsertImage(stream);
 				}
 			}
 			public void ImageFieldMerging(Aspose.Words.Reporting.ImageFieldMergingArgs args)
@@ -219,7 +283,8 @@ namespace InvitationParents
 		{
 			if (checkBoxX1.ThreeState == true)
 			{
-				_doc.Sections.Clear();
+				Document doc = new Document();
+				doc.Sections.Clear();
 
 				#region 班級學生的電子報表
 				//建立一個學生電子報表
@@ -230,7 +295,7 @@ namespace InvitationParents
 				Document each_page = new Document(studentTemplate);
 				MemoryStream stream = new MemoryStream();
 				each_page.Save(stream, SaveFormat.Doc);
-				_doc.Sections.Add(_doc.ImportNode(each_page.Sections[0], true)); //合併至doc
+				doc.Sections.Add(doc.ImportNode(each_page.Sections[0], true)); //合併至doc
 
 				List<string> ClassID = K12.Presentation.NLDPanels.Class.SelectedSource; //取得畫面上所選班級的ID清單
 				List<StudentRecord> srList = Student.SelectByClassIDs(ClassID); //依據班級ID,取得學生物件
@@ -249,24 +314,24 @@ namespace InvitationParents
 
 		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			//System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
-			//sd.Title = "另存新檔";
-			//sd.FileName = "合併欄位.doc";
-			//sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
-			//if (sd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-			//{
-			//	try
-			//	{
-			//		Document document = new Document(Properties.Resources.)
-			//		.Save(sd.FileName, Aspose.Words.SaveFormat.Doc);
-			//		System.Diagnostics.Process.Start(sd.FileName);
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		FISCA.Presentation.Controls.MsgBox.Show("指定路徑無法存取。", "建立檔案失敗", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-			//		return;
-			//	}
-			//}
+			System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
+			sd.Title = "另存新檔";
+			sd.FileName = "合併欄位.doc";
+			sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
+			if (sd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				try
+				{
+					Document document = new Document(new MemoryStream(Properties.Resources.QRCODE_合併欄位));
+					document.Save(sd.FileName, Aspose.Words.SaveFormat.Doc);
+					System.Diagnostics.Process.Start(sd.FileName);
+				}
+				catch (Exception ex)
+				{
+					FISCA.Presentation.Controls.MsgBox.Show("指定路徑無法存取。", "建立檔案失敗", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+					return;
+				}
+			}
 		}
 	}
 }

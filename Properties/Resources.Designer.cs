@@ -73,9 +73,9 @@ namespace InvitationParents.Properties {
         /// <summary>
         ///   查詢類型 System.Byte[] 的當地語系化資源。
         /// </summary>
-        internal static byte[] Class_QRcode1 {
+        internal static byte[] QRCODE_合併欄位 {
             get {
-                object obj = ResourceManager.GetObject("Class_QRcode1", resourceCulture);
+                object obj = ResourceManager.GetObject("QRCODE_合併欄位", resourceCulture);
                 return ((byte[])(obj));
             }
         }
