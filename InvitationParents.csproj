@@ -36,7 +36,7 @@
     </Reference>
     <Reference Include="Aspose.Words_201402, Version=14.1.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Library\Aspose.Words_201402.dll</HintPath>
+      <HintPath>..\..\Desktop\ischool desktop\modules\Campus\Aspose.Words_201402.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
@@ -48,7 +48,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="FISCA.Authentication">
-      <HintPath>..\..\ischool desktop\kernel\FISCA.Authentication.dll</HintPath>
+      <HintPath>..\..\Desktop\ischool desktop\kernel\FISCA.Authentication.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="FISCA.Data">
