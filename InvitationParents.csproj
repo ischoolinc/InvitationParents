@@ -34,9 +34,19 @@
       <HintPath>library\Aspose.BarCode.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Aspose.Cells, Version=4.3.0.0, Culture=neutral, PublicKeyToken=9a40d5a4b59e5256, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>library\Aspose.Cells.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Aspose.Words_201402, Version=14.1.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>library\Aspose.Words_201402.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Campus.Report, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>library\Campus.Report.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
@@ -61,6 +71,11 @@
     </Reference>
     <Reference Include="FISCA.Presentation">
       <HintPath>library\FISCA.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.UDT, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>library\FISCA.UDT.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="K12.Data">
@@ -100,6 +115,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form.resx">
@@ -116,6 +132,29 @@
     <None Include="Resources\QRCODE 合併欄位.docx" />
     <None Include="Resources\Report.png" />
     <None Include="Resources\Student_QRcode.doc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="library\Aspose.BarCode.dll" />
+    <Content Include="library\Aspose.Cells.dll" />
+    <Content Include="library\Aspose.Words.dll" />
+    <Content Include="library\Aspose.Words.xml" />
+    <Content Include="library\Aspose.Words_201402.dll" />
+    <Content Include="library\Aspose.Words_201402.xml" />
+    <Content Include="library\Campus.Report.dll" />
+    <Content Include="library\Campus.Report.pdb" />
+    <Content Include="library\CourseGradeB.dll" />
+    <Content Include="library\DevComponents.DotNetBar2.dll" />
+    <Content Include="library\FISCA.Authentication.dll" />
+    <Content Include="library\FISCA.Data.dll" />
+    <Content Include="library\FISCA.dll" />
+    <Content Include="library\FISCA.Permission.dll" />
+    <Content Include="library\FISCA.Presentation.dll" />
+    <Content Include="library\FISCA.UDT.dll" />
+    <Content Include="library\FISCA.UDT.pdb" />
+    <Content Include="library\FISCA.UDT.xml" />
+    <Content Include="library\K12.Data.dll" />
+    <Content Include="library\K12.Presentation.dll" />
+    <Content Include="library\SmartSchool.ePaper.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

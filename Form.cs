@@ -23,19 +23,18 @@ namespace InvitationParents
 		/// <summary>
 		/// 學生電子報表
 		/// </summary>
-		SmartSchool.ePaper.ElectronicPaper paperForStudent { get; set; }
-
-
+		SmartSchool.ePaper.ElectronicPaper paperForStudent { get; set; }        
 		Document _template = new Document();
 		BackgroundWorker bgw = new BackgroundWorker();
 		private List<string> studentIds;
 		private QueryHelper queryHelper;
 		private string _type;
-		MemoryStream studentTemplate = new MemoryStream(Properties.Resources.Student_QRcode);
+        ReportConfig _config;
 
-		public Form(List<string> selectStudentIds, string type)
-		{
+		public Form(List<string> selectStudentIds, string type)		
+        {
 			InitializeComponent();
+            _config = new ReportConfig();
 			studentIds = selectStudentIds;
 			this.queryHelper = new QueryHelper();
 
@@ -50,7 +49,7 @@ namespace InvitationParents
 		{
 			if (_type == "student")
 			{
-				_template = new Document(new MemoryStream(Properties.Resources.Student_QRcode));
+                _template = _config.LoadTemplate(_type);
 
 				if (!bgw.IsBusy)
 					bgw.RunWorkerAsync(studentIds);
@@ -59,7 +58,7 @@ namespace InvitationParents
 			}
 			else if (_type == "class")
 			{
-				_template = new Document(new MemoryStream(Properties.Resources.Class_QRcode));
+                _template = _config.LoadTemplate(_type);
 				if (!bgw.IsBusy)
 					bgw.RunWorkerAsync(studentIds);
 				else
@@ -272,16 +271,16 @@ namespace InvitationParents
 		{
 			if (checkBoxX1.ThreeState == true)
 			{
-				Document doc = new Document();
+				Document doc = new Document();                
 				doc.Sections.Clear();
 
 				#region 班級學生的電子報表
 				//建立一個學生電子報表
 				//傳入參數 : 報表名稱,學年度,學期,類型(學生/班級/教師/課程)
 				paperForStudent = new SmartSchool.ePaper.ElectronicPaper("學生家長代碼邀請函 for App", School.DefaultSchoolYear, School.DefaultSemester, SmartSchool.ePaper.ViewerType.Student);
-
+                
 				//學生個人的文件
-				Document each_page = new Document(studentTemplate);
+                Document each_page = _config.LoadTemplate("student");
 				MemoryStream stream = new MemoryStream();
 				each_page.Save(stream, SaveFormat.Doc);
 				doc.Sections.Add(doc.ImportNode(each_page.Sections[0], true)); //合併至doc
@@ -322,5 +321,126 @@ namespace InvitationParents
 				}
 			}
 		}
+
+        private void lnkDefault_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            lnkDefault.Enabled = false;
+            if (_type == "student")
+            {
+                string reportName = "學生家長邀請函預設範本_學生";
+                Document document = new Document(new MemoryStream(Properties.Resources.Student_QRcode));
+
+                System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
+                sd.Title = "另存新檔";
+                sd.FileName = reportName + ".doc";
+                sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
+                if (sd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        document.Save(sd.FileName, Aspose.Words.SaveFormat.Doc);
+                        System.Diagnostics.Process.Start(sd.FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        FISCA.Presentation.Controls.MsgBox.Show(ex + "", "建立檔案失敗", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            
+            }
+            if (_type == "class")
+            {
+                string reportName = "學生家長邀請函預設範本_班級";
+                Document document = new Document(new MemoryStream(Properties.Resources.Class_QRcode));
+
+                System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
+                sd.Title = "另存新檔";
+                sd.FileName = reportName + ".doc";
+                sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
+                if (sd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        document.Save(sd.FileName, Aspose.Words.SaveFormat.Doc);
+                        System.Diagnostics.Process.Start(sd.FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        FISCA.Presentation.Controls.MsgBox.Show(ex + "", "建立檔案失敗", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+            lnkDefault.Enabled = true;            
+        }
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lnkTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            lnkTemplate.Enabled = false;
+            Document docTemplate = _config.LoadTemplate(_type);
+            
+            if(docTemplate !=null)
+            {
+                System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
+                sd.Title = "另存新檔";
+                if(_type== "class")
+                    sd.FileName = "學生家長邀請函範本_班級.doc";
+                else
+                    sd.FileName = "學生家長邀請函範本_學生.doc";
+
+                sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
+                if (sd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        docTemplate.Save(sd.FileName, Aspose.Words.SaveFormat.Doc);
+                        System.Diagnostics.Process.Start(sd.FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        FISCA.Presentation.Controls.MsgBox.Show(ex + "", "建立檔案失敗", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+            lnkTemplate.Enabled = true;
+        }
+
+        private void lnkUpload_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            buttonX1.Enabled = false;
+            lnkUpload.Enabled = false;
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "上傳範本";
+            dialog.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                try
+                {
+                    if(string.IsNullOrEmpty(_type))
+                    {
+                        MsgBox.Show("無法辨識上傳類別.");
+                    }
+                    else
+                    {
+                        Document temp = new Aspose.Words.Document(dialog.FileName);
+                        _config.SaveTemplate(temp, _type);
+                        MsgBox.Show("上傳範本完成.");
+                    }
+                }
+                catch
+                {
+                    MsgBox.Show("範本開啟失敗");
+                }
+            }
+            buttonX1.Enabled = true;
+            lnkUpload.Enabled = true;
+        }
 	}
 }
