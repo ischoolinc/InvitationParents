@@ -120,6 +120,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -132,6 +133,7 @@
     <None Include="Resources\QRCODE 合併欄位.docx" />
     <None Include="Resources\Report.png" />
     <None Include="Resources\Student_QRcode.doc" />
+    <None Include="Resources\家長APP邀請函樣板-1頁 %2820151013%29.docx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="library\Aspose.BarCode.dll" />
