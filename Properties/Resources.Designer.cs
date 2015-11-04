@@ -93,9 +93,9 @@ namespace InvitationParents.Properties {
         /// <summary>
         ///   查詢類型 System.Byte[] 的當地語系化資源。
         /// </summary>
-        internal static byte[] 家長APP邀請函樣板_1頁__20151013_ {
+        internal static byte[] 家長APP邀請函樣板_1頁__20151104_ {
             get {
-                object obj = ResourceManager.GetObject("家長APP邀請函樣板_1頁__20151013_", resourceCulture);
+                object obj = ResourceManager.GetObject("家長APP邀請函樣板_1頁__20151104_", resourceCulture);
                 return ((byte[])(obj));
             }
         }

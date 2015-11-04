@@ -328,7 +328,7 @@ namespace InvitationParents
             if (_type == "student")
             {
                 string reportName = "學生家長邀請函預設範本_學生";
-                Document document = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_1頁__20151013_));
+                Document document = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_1頁__20151104_));
 
                 System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
                 sd.Title = "另存新檔";
