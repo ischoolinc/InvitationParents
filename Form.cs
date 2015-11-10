@@ -30,7 +30,8 @@ namespace InvitationParents
 		private QueryHelper queryHelper;
 		private string _type;
         ReportConfig _config;
-
+        private string _tempType = "預設範本";
+        
 		public Form(List<string> selectStudentIds, string type)		
         {
 			InitializeComponent();
@@ -47,9 +48,14 @@ namespace InvitationParents
 
 		private void buttonX1_Click(object sender, EventArgs e)
 		{
+            _tempType = cboSelTemplate.Text;
+            _config._RptConfig.SetString("使用範本", _tempType);
 			if (_type == "student")
 			{
                 _template = _config.LoadTemplate(_type);
+
+                if (_tempType == "預設範本")
+                    _template = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_1頁__20151104_));
 
 				if (!bgw.IsBusy)
 					bgw.RunWorkerAsync(studentIds);
@@ -59,6 +65,10 @@ namespace InvitationParents
 			else if (_type == "class")
 			{
                 _template = _config.LoadTemplate(_type);
+
+                if (_tempType == "預設範本")
+                    _template = new Document(new MemoryStream(Properties.Resources.Class_QRcode));
+
 				if (!bgw.IsBusy)
 					bgw.RunWorkerAsync(studentIds);
 				else
@@ -93,6 +103,10 @@ namespace InvitationParents
 						parentsCode = row["parent_code"] + "";
 
 					Document perPage = _template.Clone();
+
+                    if (_tempType == "預設範本")
+                        perPage = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_1頁__20151104_));
+
 					merge.Clear();
 					merge.Add("年級", gradeYear);
 					merge.Add("班級名稱", className);
@@ -377,7 +391,10 @@ namespace InvitationParents
 
         private void Form_Load(object sender, EventArgs e)
         {
-
+            cboSelTemplate.Items.Add("預設範本");
+            cboSelTemplate.Items.Add("自訂範本");
+            cboSelTemplate.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboSelTemplate.Text= _config._RptConfig.GetString("使用範本","預設範本");            
         }
 
         private void lnkTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

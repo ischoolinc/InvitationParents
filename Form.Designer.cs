@@ -36,6 +36,8 @@
             this.lnkDefault = new System.Windows.Forms.LinkLabel();
             this.lnkTemplate = new System.Windows.Forms.LinkLabel();
             this.lnkUpload = new System.Windows.Forms.LinkLabel();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.cboSelTemplate = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.SuspendLayout();
             // 
             // buttonX1
@@ -43,7 +45,7 @@
             this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonX1.BackColor = System.Drawing.Color.Transparent;
             this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX1.Location = new System.Drawing.Point(190, 137);
+            this.buttonX1.Location = new System.Drawing.Point(166, 178);
             this.buttonX1.Name = "buttonX1";
             this.buttonX1.Size = new System.Drawing.Size(75, 23);
             this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -56,7 +58,7 @@
             this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonX2.BackColor = System.Drawing.Color.Transparent;
             this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX2.Location = new System.Drawing.Point(271, 137);
+            this.buttonX2.Location = new System.Drawing.Point(247, 178);
             this.buttonX2.Name = "buttonX2";
             this.buttonX2.Size = new System.Drawing.Size(75, 23);
             this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -98,7 +100,7 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel1.Location = new System.Drawing.Point(233, 99);
+            this.linkLabel1.Location = new System.Drawing.Point(233, 142);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(86, 17);
             this.linkLabel1.TabIndex = 4;
@@ -110,7 +112,7 @@
             // 
             this.lnkDefault.AutoSize = true;
             this.lnkDefault.BackColor = System.Drawing.Color.Transparent;
-            this.lnkDefault.Location = new System.Drawing.Point(9, 99);
+            this.lnkDefault.Location = new System.Drawing.Point(9, 142);
             this.lnkDefault.Name = "lnkDefault";
             this.lnkDefault.Size = new System.Drawing.Size(86, 17);
             this.lnkDefault.TabIndex = 5;
@@ -122,7 +124,7 @@
             // 
             this.lnkTemplate.AutoSize = true;
             this.lnkTemplate.BackColor = System.Drawing.Color.Transparent;
-            this.lnkTemplate.Location = new System.Drawing.Point(101, 99);
+            this.lnkTemplate.Location = new System.Drawing.Point(101, 142);
             this.lnkTemplate.Name = "lnkTemplate";
             this.lnkTemplate.Size = new System.Drawing.Size(60, 17);
             this.lnkTemplate.TabIndex = 6;
@@ -134,7 +136,7 @@
             // 
             this.lnkUpload.AutoSize = true;
             this.lnkUpload.BackColor = System.Drawing.Color.Transparent;
-            this.lnkUpload.Location = new System.Drawing.Point(167, 99);
+            this.lnkUpload.Location = new System.Drawing.Point(167, 142);
             this.lnkUpload.Name = "lnkUpload";
             this.lnkUpload.Size = new System.Drawing.Size(60, 17);
             this.lnkUpload.TabIndex = 7;
@@ -142,11 +144,40 @@
             this.lnkUpload.Text = "上傳範本";
             this.lnkUpload.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUpload_LinkClicked);
             // 
+            // labelX2
+            // 
+            this.labelX2.AutoSize = true;
+            this.labelX2.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.Class = "";
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Location = new System.Drawing.Point(13, 98);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(60, 21);
+            this.labelX2.TabIndex = 8;
+            this.labelX2.Text = "使用範本";
+            // 
+            // cboSelTemplate
+            // 
+            this.cboSelTemplate.DisplayMember = "Text";
+            this.cboSelTemplate.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboSelTemplate.FormattingEnabled = true;
+            this.cboSelTemplate.ItemHeight = 19;
+            this.cboSelTemplate.Location = new System.Drawing.Point(80, 96);
+            this.cboSelTemplate.Name = "cboSelTemplate";
+            this.cboSelTemplate.Size = new System.Drawing.Size(121, 25);
+            this.cboSelTemplate.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cboSelTemplate.TabIndex = 9;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 172);
+            this.ClientSize = new System.Drawing.Size(340, 216);
+            this.Controls.Add(this.cboSelTemplate);
+            this.Controls.Add(this.labelX2);
             this.Controls.Add(this.lnkUpload);
             this.Controls.Add(this.lnkTemplate);
             this.Controls.Add(this.lnkDefault);
@@ -174,5 +205,7 @@
         private System.Windows.Forms.LinkLabel lnkDefault;
         private System.Windows.Forms.LinkLabel lnkTemplate;
         private System.Windows.Forms.LinkLabel lnkUpload;
+        private DevComponents.DotNetBar.LabelX labelX2;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cboSelTemplate;
 	}
 }

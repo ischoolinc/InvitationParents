@@ -10,7 +10,7 @@ namespace InvitationParents
 {
     public class ReportConfig
     {
-        private ReportConfiguration _RptConfig;
+        public  ReportConfiguration _RptConfig;
         public ReportConfig()
         {
             _RptConfig = new ReportConfiguration("InvitationParents_Config");
