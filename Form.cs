@@ -55,7 +55,7 @@ namespace InvitationParents
                 _template = _config.LoadTemplate(_type);
 
                 if (_tempType == "預設範本")
-                    _template = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_1頁__20160130_));
+                    _template = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_原始檔_));
 
 				if (!bgw.IsBusy)
 					bgw.RunWorkerAsync(studentIds);
@@ -105,7 +105,7 @@ namespace InvitationParents
 					Document perPage = _template.Clone();
 
                     if (_tempType == "預設範本")
-                        perPage = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_1頁__20160130_));
+                        perPage = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_原始檔_));
 
 					merge.Clear();
 					merge.Add("年級", gradeYear);
@@ -342,7 +342,7 @@ namespace InvitationParents
             if (_type == "student")
             {
                 string reportName = "學生家長邀請函預設範本_學生";
-                Document document = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_1頁__20160130_));
+                Document document = new Document(new MemoryStream(Properties.Resources.家長APP邀請函樣板_原始檔_));
 
                 System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
                 sd.Title = "另存新檔";

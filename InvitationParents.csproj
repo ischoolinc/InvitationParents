@@ -133,6 +133,7 @@
     <None Include="Resources\QRCODE 合併欄位.docx" />
     <None Include="Resources\Report.png" />
     <None Include="Resources\Student_QRcode.doc" />
+    <None Include="Resources\家長APP邀請函樣板%28原始檔%29.docx" />
     <None Include="Resources\家長APP邀請函樣板-1頁 %2820160130%29.docx" />
   </ItemGroup>
   <ItemGroup>
