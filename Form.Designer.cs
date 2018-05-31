@@ -82,6 +82,7 @@
             // 
             // checkBoxX1
             // 
+            this.checkBoxX1.AutoSize = true;
             this.checkBoxX1.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
@@ -90,7 +91,7 @@
             this.checkBoxX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.checkBoxX1.Location = new System.Drawing.Point(12, 62);
             this.checkBoxX1.Name = "checkBoxX1";
-            this.checkBoxX1.Size = new System.Drawing.Size(108, 23);
+            this.checkBoxX1.Size = new System.Drawing.Size(121, 21);
             this.checkBoxX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.checkBoxX1.TabIndex = 3;
             this.checkBoxX1.Text = "上傳至電子報表";

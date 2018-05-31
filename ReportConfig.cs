@@ -59,7 +59,7 @@ namespace InvitationParents
                     if (string.IsNullOrEmpty(strStudent))
                     {
                         // 使用預設                    
-                        value = new Document(new MemoryStream(Properties.Resources.學生家長二維條碼邀請函201609));
+                        value = new Document(new MemoryStream(Properties.Resources.學生家長邀請函預設範本_學生_20180531));
                         
                         // 回存                        
                         MemoryStream stream = new MemoryStream();
