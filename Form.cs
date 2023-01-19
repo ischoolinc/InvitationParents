@@ -44,6 +44,8 @@ namespace InvitationParents
             bgw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(_bgWorker_RunWorkerCompleted);
 
             _type = type;
+            if(type== "class")
+                checkBoxX1.Visible = checkBoxX1.Enabled = checkBoxX1.Checked = false;
         }
 
         private void buttonX1_Click(object sender, EventArgs e)
